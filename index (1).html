@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NextStep STEM</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --green: #4A7C59;
+    --green-light: #6AAF80;
+    --white: #FFFFFF;
+    --off-white: #F8F9F6;
+    --light-gray: #F0F2EE;
+    --border: #DDE3D8;
+    --text: #1B2A4A;
+    --muted: #6B7A6A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 40px;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  .nav-cta {
+    background: var(--navy);
+    color: white !important;
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--green) !important; color: white !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    background: var(--off-white);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--green);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .hero-mission {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+
+  .btn-secondary {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-logo-wrap {
+    width: 380px;
+    height: 380px;
+    background: white;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(27,42,74,0.1), 0 4px 16px rgba(27,42,74,0.06);
+    padding: 40px;
+  }
+
+  .hero-logo-wrap img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--navy);
+    padding: 32px 48px;
+  }
+
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stat {
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding-right: 40px;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-num span { color: var(--green-light); }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 96px 48px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* WHAT WE DO */
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .what-card {
+    background: var(--white);
+    padding: 40px 36px;
+    position: relative;
+  }
+
+  .what-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--light-gray);
+    line-height: 1;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+
+  .what-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .what-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .what-accent {
+    width: 32px;
+    height: 3px;
+    background: var(--green);
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  /* PROGRAMME */
+  .programme-section {
+    background: var(--off-white);
+  }
+
+  .programme-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 56px;
+    align-items: start;
+  }
+
+  .programme-weeks {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .week-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .week-tab {
+    background: var(--navy);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    padding: 16px 10px;
+    white-space: nowrap;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .week-tab.green { background: var(--green); }
+
+  .week-content {
+    padding: 20px 24px;
+    flex: 1;
+  }
+
+  .week-sessions {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .week-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .week-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .programme-right {}
+
+  .competition-card {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .comp-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 12px;
+  }
+
+  .comp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .comp-brief {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    font-weight: 300;
+    font-style: italic;
+    border-left: 2px solid var(--green-light);
+    padding-left: 16px;
+    margin-bottom: 28px;
+  }
+
+  .prizes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .prize {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .prize-place {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+  }
+
+  .prize-amt {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-light);
+  }
+
+  .prize-unit {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+  }
+
+  /* TEAM */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .team-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .team-card:hover {
+    box-shadow: 0 8px 24px rgba(27,42,74,0.08);
+    transform: translateY(-2px);
+  }
+
+  .team-card.founder {
+    background: var(--off-white);
+    border-color: var(--navy);
+  }
+
+  .team-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    overflow: hidden;
+    border: 3px solid var(--border);
+  }
+
+  .team-card.founder .team-avatar {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+  }
+
+  .team-role {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .team-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .team-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* REGISTER */
+  .register-section {
+    background: var(--navy);
+    padding: 96px 48px;
+  }
+
+  .register-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .register-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 20px;
+  }
+
+  .register-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .register-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .register-btn {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 16px;
+  }
+
+  .register-btn:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  .register-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 16px;
+  }
+
+  /* CONTACT */
+  .contact-bar {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .contact-left p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .contact-left strong {
+    font-size: 15px;
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .contact-links a {
+    font-size: 14px;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .contact-links a:hover { color: var(--green); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  footer a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: rgba(255,255,255,0.6); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: 44px; }
+    .hero-logo-wrap { width: 260px; height: 260px; margin: 0 auto; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0; gap: 0; }
+    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 24px; }
+    .section { padding: 64px 24px; }
+    .what-grid { grid-template-columns: 1fr; }
+    .programme-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .register-title { font-size: 36px; }
+    .contact-bar { padding: 32px 24px; }
+    footer { padding: 20px 24px; }
+    .prizes { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="NextStep STEM">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programme">Programme</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#register" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Free STEM Education · South Asia</div>
+      <h1>Where you grow up shouldn't determine what you can <em>build.</em></h1>
+      <p class="hero-mission">We believe where you grow up shouldn't determine what you can build. NextStep STEM gives young people in South Asia free access to world-class STEM education.</p>
+      <div class="hero-actions">
+        <a href="#register" class="btn-primary">Apply for Cohort 1</a>
+        <a href="#programme" class="btn-secondary">See the programme →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-wrap">
+        <img src="logo.png" alt="NextStep STEM">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">6<span> sessions</span></div>
+      <div class="stat-label">Across 4 weeks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">30<span>+</span></div>
+      <div class="stat-label">Students in Cohort 1</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">£<span>0</span></div>
+      <div class="stat-label">Cost to students</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">18<span>k</span></div>
+      <div class="stat-label">PKR in prizes</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT WE DO -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Real problems.<br>Real solutions.</h2>
+    <p class="section-sub">NextStep STEM doesn't teach students to memorise answers. We teach them to understand problems — and design their way out of them.</p>
+
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-num">01</div>
+        <div class="what-accent"></div>
+        <div class="what-title">Project-Based Learning</div>
+        <div class="what-desc">Students don't just study energy efficiency — they design a low-cost solution for a real Pakistani home, school, or community and submit it for judging.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-num">02</div>
+        <div class="what-accent"></div>
+        <div class="what-title">Expert Mentorship</div>
+        <div class="what-desc">Small groups of 10 students work closely with dedicated mentors across six sessions — enough contact to actually make progress, not just observe.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-num">03</div>
+        <div class="what-accent"></div>
+        <div class="what-title">Completely Free</div>
+        <div class="what-desc">No fees, no subscriptions, no costs of any kind. NextStep STEM exists because opportunity shouldn't be determined by postcode or income.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section class="section programme-section" id="programme">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Programme</div>
+    <h2 class="section-title">Four weeks.<br>One real project.</h2>
+    <p class="section-sub">Cohort 1 runs online via Google Meet in groups of 10. Every student submits an original energy efficiency project and competes for prizes.</p>
+
+    <div class="programme-grid">
+      <div class="programme-weeks">
+
+        <div class="week-row">
+          <div class="week-tab">Week 1</div>
+          <div class="week-content">
+            <div class="week-sessions">2 Sessions</div>
+            <div class="week-title">Introduction + First Group Session</div>
+            <div class="week-desc">Whole-cohort welcome with Ali, then first mentor-led session covering energy efficiency fundamentals and Pakistan's energy crisis.</div>
+          </div>
+        </div>
+
+        <div class="week-row">
+          <div class="week-tab">Week 2</div>
+          <div class="week-content">
+            <div class="week-sessions">2 Sessions</div>
+            <div class="week-title">Solutions + Project Ideation</div>
+            <div class="week-desc">Low-cost solution case studies — passive solar, reflective roofing, solar cookers, LED retrofitting, biogas. Students develop their project ideas.</div>
+          </div>
+        </div>
+
+        <div class="week-row">
+          <div class="week-tab">Week 3</div>
+          <div class="week-content">
+            <div class="week-sessions">2 Sessions</div>
+            <div class="week-title">Refinement + Submission</div>
+            <div class="week-desc">Mentors give structured feedback on project drafts. Students refine and submit their final project via Google Form.</div>
+          </div>
+        </div>
+
+        <div class="week-row">
+          <div class="week-tab green">Week 4</div>
+          <div class="week-content">
+            <div class="week-sessions">2 Sessions</div>
+            <div class="week-title">Showcase + Celebration</div>
+            <div class="week-desc">Group showcase with mentors, then whole-cohort celebration where Ali announces winners and every student receives a certificate.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="programme-right">
+        <div class="competition-card">
+          <div class="comp-label">The Competition</div>
+          <div class="comp-title">Energy Efficiency Challenge</div>
+          <div class="comp-brief">"Design a low-cost energy efficiency solution for a Pakistani home, school, or community — costing under 5,000 rupees to implement."</div>
+          <div class="prizes">
+            <div class="prize">
+              <div class="prize-place">1st Place</div>
+              <div class="prize-amt">10k</div>
+              <div class="prize-unit">PKR</div>
+            </div>
+            <div class="prize">
+              <div class="prize-place">2nd Place</div>
+              <div class="prize-amt">5k</div>
+              <div class="prize-unit">PKR</div>
+            </div>
+            <div class="prize">
+              <div class="prize-place">3rd Place</div>
+              <div class="prize-amt">3k</div>
+              <div class="prize-unit">PKR</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.6;">All participants receive a certificate of completion. Projects are judged by Ali Jamali on creativity, feasibility, cost realism, and expected impact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Team</div>
+    <h2 class="section-title">Built by people who care.</h2>
+    <p class="section-sub">NextStep STEM was founded and is run entirely by volunteers — students and graduates who believe in what this programme can do.</p>
+
+    <div class="team-grid">
+      <div class="team-card founder">
+        <div class="team-avatar"><img src="ali.png" alt="Ali Jamali" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        <div class="team-role">Founder & Director</div>
+        <div class="team-name">Ali Jamali</div>
+        <div class="team-desc">Year 12 student in London. Founded NextStep STEM to address the education and energy challenges he witnessed firsthand in South Asia.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><img src="havith.jpg" alt="Havith Chavda" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        <div class="team-role">Mentor · Group A</div>
+        <div class="team-name">Havith Chavda</div>
+        <div class="team-desc">Leads Group A through the full four-week programme, delivering curriculum content and guiding project development.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><img src="zenia.png" alt="Zenia Khan" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        <div class="team-role">Mentor · Group B</div>
+        <div class="team-name">Zenia Khan</div>
+        <div class="team-desc">Leads Group B through the full four-week programme, delivering curriculum content and guiding project development.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar"><img src="abilakshan.png" alt="Abilakshan Gajan" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        <div class="team-role">Mentor · Group C</div>
+        <div class="team-name">Abilakshan Gajan</div>
+        <div class="team-desc">Leads Group C through the full four-week programme, delivering curriculum content and guiding project development.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="register-section" id="register">
+  <div class="register-inner">
+    <div class="register-eyebrow">Cohort 1 · Now Open</div>
+    <h2 class="register-title">Ready to build something that matters?</h2>
+    <p class="register-sub">Applications for Cohort 1 are open. Places are limited to 30 students across three groups. Free to join — no experience required, just curiosity.</p>
+    <a href="#" class="register-btn">Apply Now — It's Free</a>
+    <p class="register-note">For questions, contact hello@nextstepstem.academy</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-bar">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <strong>NextStep STEM</strong>
+      <p>Free STEM education for young people in South Asia</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:hello@nextstepstem.academy">✉ hello@nextstepstem.academy</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 NextStep STEM. All rights reserved.</p>
+  <a href="mailto:hello@nextstepstem.academy">hello@nextstepstem.academy</a>
+</footer>
+
+</body>
+</html>
